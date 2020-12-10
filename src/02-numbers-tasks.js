@@ -54,6 +54,7 @@ function getCicleCircumference(radius) {
 function getAverage(value1, value2) {
   const sum = value1 + value2;
   if (sum > Number.MAX_SAFE_INTEGER) {
+    // eslint-disable-next-line no-mixed-operators
     return value1 / 2 + value2 / 2 + (value1 % 2 + value2 % 2) / 2;
   }
   return sum / 2;
@@ -75,8 +76,10 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
+  // eslint-disable-next-line no-restricted-properties
   const ordinateAxis = Math.pow((x2 - x1), 2);
-  const abscissaAxis = Math.pow((y2 - y1), 2)
+  // eslint-disable-next-line no-restricted-properties
+  const abscissaAxis = Math.pow((y2 - y1), 2);
   return Math.sqrt(ordinateAxis + abscissaAxis);
 }
 
@@ -116,8 +119,8 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  const cosinus = (x1 * x2 + y1 * y2) /
-    (Math.sqrt(x1 * x1 + y1 * y1) * Math.sqrt(x2 * x2 + y2 * y2));
+  const cosinus = (x1 * x2 + y1 * y2)
+    / (Math.sqrt(x1 * x1 + y1 * y1) * Math.sqrt(x2 * x2 + y2 * y2));
   return Math.acos(cosinus);
 }
 
@@ -190,6 +193,7 @@ function getParallelipidedDiagonal(a, b, c) {
  */
 function roundToPowerOfTen(num, pow) {
   if (pow === 0) return num;
+  // eslint-disable-next-line no-restricted-properties
   return Math.round(num / Math.pow(10, pow)) * Math.pow(10, pow);
 }
 
@@ -212,6 +216,7 @@ function roundToPowerOfTen(num, pow) {
  */
 function isPrime(n) {
   const max = Math.floor(Math.sqrt(n));
+  // eslint-disable-next-line no-plusplus
   for (let i = 2; i <= max; i++) {
     if ((n % i) === 0) {
       return false;
@@ -239,9 +244,8 @@ function toNumber(value, def) {
   const num = parseFloat(value);
   if (Number.isNaN(num)) {
     return def;
-  } else {
-    return value;
   }
+  return value;
 }
 
 module.exports = {
