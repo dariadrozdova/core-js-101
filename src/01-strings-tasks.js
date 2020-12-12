@@ -202,8 +202,25 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let rectangle = '';
+
+  const topPart = (value) => `${value}┌${'─'.repeat(width - 2)}┐\n`;
+  const bottomPart = (value) => `${value}└${'─'.repeat(width - 2)}┘\n`;
+  const middlePart = (value) => `${value}│${' '.repeat(width - 2)}│\n`;
+
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i <= height - 1; i++) {
+    if (i === 0) {
+      rectangle = topPart(rectangle);
+    } else if (i === height - 1) {
+      rectangle = bottomPart(rectangle);
+    } else {
+      rectangle = middlePart(rectangle);
+    }
+  }
+
+  return rectangle;
 }
 
 
@@ -223,8 +240,16 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const cipher = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm !?';
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz !?';
+  let result = '';
+
+  for (let i = 0; i < str.length; i += 1) {
+    const char = cipher.indexOf(str[i]);
+    result += alphabet.substring(char, char + 1);
+  }
+  return result;
 }
 
 /**
@@ -269,8 +294,12 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const deck = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  return deck.indexOf(value);
 }
 
 
