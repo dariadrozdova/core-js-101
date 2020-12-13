@@ -29,6 +29,7 @@
  *                                                    //  Ask her again.';
  */
 function willYouMarryMe(isPositiveAnswer) {
+  // eslint-disable-next-line no-unused-vars
   const answer = new Promise((resolve, reject) => {
     if (isPositiveAnswer === true) resolve('Hooray!!! She said "Yes"!');
     if (isPositiveAnswer === false) resolve('Oh no, she said "No".');
@@ -98,9 +99,7 @@ function getFastestPromise(array) {
  *
  */
 function chainPromises(array, action) {
-  return array.reduce((acc, item) =>
-    acc.then((value1) => item.then((value2) =>
-    Promise.resolve(action(value1, value2)))).catch(() => 'Error'));
+  return array.reduce((acc, item) => acc.then((value1) => item.then((value2) => Promise.resolve(action(value1, value2)))).catch(() => 'Error'));
 }
 
 module.exports = {
