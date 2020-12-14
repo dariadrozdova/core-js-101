@@ -1,6 +1,6 @@
 /* *********************************************************************************************
  *                                                                                             *
- * Plese read the following tutorial before implementing tasks:                                *
+ * Please read the following tutorial before implementing tasks:                                *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions                     *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function   *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments       *
@@ -23,8 +23,8 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
+function getComposition(f, g) {
+  return (x) => f(g(x));
 }
 
 
@@ -44,8 +44,8 @@ function getComposition(/* f, g */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return (x) => x ** exponent;
 }
 
 
@@ -62,8 +62,9 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...args) {
+  return (x) => [...args]
+    .reduce((acc, item, index, arr) => acc + item * x ** (arr.length - 1 - index), 0);
 }
 
 
@@ -81,8 +82,10 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  let cash;
+  // eslint-disable-next-line no-return-assign
+  return () => cash || (cash = func());
 }
 
 
@@ -101,8 +104,18 @@ function memoize(/* func */) {
  * }, 2);
  * retryer() => 2
  */
-function retry(/* func, attempts */) {
-  throw new Error('Not implemented');
+function retry(func, attempts) {
+  return () => {
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < attempts; i++) {
+      try {
+        return func();
+      } catch (e) {
+        this.exception = e;
+      }
+    }
+    return undefined;
+  };
 }
 
 
@@ -129,8 +142,14 @@ function retry(/* func, attempts */) {
  * cos(3.141592653589793) ends
  *
  */
-function logger(/* func, logFunc */) {
-  throw new Error('Not implemented');
+function logger(func, logFunc) {
+  return (...args) => {
+    const log = `${func.name}(${JSON.stringify(args).slice(1, -1)})`;
+    logFunc(`${log} starts`);
+    const result = func(...args);
+    logFunc(`${log} ends`);
+    return result;
+  };
 }
 
 
@@ -147,8 +166,8 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return (...arg2) => fn(...args1, ...arg2);
 }
 
 
@@ -169,8 +188,13 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let num = startFrom - 1;
+  return () => {
+    // eslint-disable-next-line no-plusplus
+    num++;
+    return num;
+  };
 }
 
 
