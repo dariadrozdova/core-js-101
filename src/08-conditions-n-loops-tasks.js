@@ -462,8 +462,25 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+
+function evaluateTicTacToePosition(position) {
+  // eslint-disable-next-line array-callback-return,consistent-return
+  if (position.some((item) => {
+    if (item[0] && item[0] === item[1] && item[1] === item[2]) return true;
+  })) {
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < 3; i++) {
+      if (position[0][i] && position[0][i]
+        === position[1][i] && position[1][i] === position[2][i]) {
+        return position[0][i];
+      }
+    }
+  }
+
+  const arr = [...position[0], ...position[1], ...position[2]];
+  if (arr[0] === arr[4] && arr[4] === arr[8]) return arr[0];
+  if (arr[2] === arr[4] && arr[4] === arr[6]) return arr[2];
+  return undefined;
 }
 
 
